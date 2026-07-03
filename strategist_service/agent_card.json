@@ -1,0 +1,20 @@
+{
+  "name": "RFP Strategist Agent",
+  "description": "Makes Bid/No-Bid decisions by cross-referencing RFP requirements against company capabilities via MCP",
+  "url": "https://<your-cloud-run-url>/",
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false
+  },
+  "skills": [
+    {
+      "id": "bid_no_bid_decision",
+      "name": "Bid/No-Bid Decision",
+      "description": "Takes a list of validated RFP requirements and returns a structured Bid/No-Bid recommendation with confidence score",
+      "tags": ["procurement", "rfp", "decision-making"],
+      "examples": ["Evaluate these 12 requirements against our company capabilities"]
+    }
+  ],
+  "authentication": {"schemes": []}
+}

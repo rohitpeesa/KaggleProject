@@ -1,0 +1,10 @@
+fastmcp
+google-genai
+google-adk
+streamlit
+PyPDF2
+pydantic
+python-dotenv
+fastapi
+uvicorn
+reportlab

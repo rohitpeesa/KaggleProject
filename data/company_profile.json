@@ -1,0 +1,36 @@
+{
+  "name": "NexusTech Solutions",
+  "security_certifications": {
+    "ISO 27001": "active",
+    "SOC-2 Type II": "active",
+    "HIPAA": "in progress"
+  },
+  "cloud_infrastructure": {
+    "primary": "GCP",
+    "secondary": "AWS",
+    "multi_cloud_capable": true
+  },
+  "domains_of_expertise": [
+    "healthcare IT",
+    "fintech",
+    "data engineering",
+    "federal procurement"
+  ],
+  "core_tech_stack": [
+    "Python",
+    "Spark",
+    "Airflow",
+    "dbt",
+    "Kubernetes",
+    "Terraform"
+  ],
+  "compliance_frameworks": {
+    "GDPR": "active",
+    "FedRAMP": "in progress"
+  },
+  "team_size": 200,
+  "past_performance": {
+    "federal_contracts": 3,
+    "state_government_contracts": 2
+  }
+}
