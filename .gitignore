@@ -18,3 +18,7 @@ __pycache__/
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# writeups
+kaggle_writeup.md
+video_script.md

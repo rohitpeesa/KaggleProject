@@ -4,6 +4,7 @@ from typing import List, Optional, Literal
 from google import genai
 from google.genai import types
 import os
+import time
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -95,6 +96,8 @@ Page Text: {page_text}
                         "source_page": page_num,
                         "reason": verify_res.reason or "Failed verification"
                     })
+                    
+                time.sleep(2) # Prevent Gemini API rate limit exceptions from auto-flagging
             except Exception as e:
                 flagged.append({
                     "id": req.get("id", 0),

@@ -30,6 +30,16 @@ class StrategistAgent:
         self.client = genai.Client()
 
     async def run(self, validated_requirements: list) -> dict:
+        if not validated_requirements:
+            return {
+                "decision": "NO-BID",
+                "confidence_score": 0,
+                "dealbreakers_found": ["No requirements provided"],
+                "strong_matches": [],
+                "risks": [],
+                "reasoning": "No requirements were found or kept for evaluation. Cannot bid on an empty scope."
+            }
+
         capabilities_context = {}
         
         async with self.mcp_client as client:

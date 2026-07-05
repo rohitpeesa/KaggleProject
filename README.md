@@ -26,7 +26,7 @@ flowchart TD
 The pipeline enforces a strict, multi-agent sequence:
 1. **Extractor Agent:** Scans the PDF for prompt injections. If safe, extracts hard technical, compliance, and timeline requirements.
 2. **Critic Agent (Hallucination Guardrail):** Verifies that the extracted requirements are actually present and accurately represented on the specific source page.
-3. **HITL Triage (Streamlit UI):** Pauses execution if the Critic flags any hallucinations, allowing a Human-In-The-Loop to manually "Force Keep" or "Discard" them.
+3. **HITL Triage & Profile Management (Streamlit UI):** Pauses execution if the Critic flags any hallucinations, allowing a Human-In-The-Loop to manually "Force Keep" or "Discard" them. It also features a dynamic sidebar editor for on-the-fly modification of the company capabilities (`company_profile.json`).
 4. **Strategist Agent (Senior Solutions Architect):** Connects to our Mock MCP Server to query company capabilities and current compliance certifications, rendering a final, confident Bid/No-Bid decision. The Strategist Agent is deployed as a standalone A2A-compliant service on Cloud Run. It publishes an AgentCard at `/.well-known/agent-card.json` describing its capabilities and the `bid_no_bid_decision` skill.
 
 The orchestrator acts as an A2A client: it first discovers the Strategist by fetching its AgentCard, then delegates the decision task via JSON-RPC 2.0 over HTTP. This means the Strategist could be replaced by any other A2A-compliant agent (from a different framework or vendor) without changing the orchestrator - which is the core value proposition of A2A.
@@ -50,11 +50,19 @@ Architecture layer separation (as recommended by Google's official A2A guidance)
 
 ## How to Run
 
-The entire pipeline is interacted with via a Streamlit UI:
+Since the pipeline utilizes a decoupled A2A microservice architecture, you must run the backend Strategist Service and the frontend UI concurrently.
+
+**Terminal 1 (Backend A2A Service):**
+```bash
+cd strategist_service
+uvicorn main:app --host 0.0.0.0 --port 8080
+```
+
+**Terminal 2 (Frontend Orchestrator UI):**
 ```bash
 streamlit run ui/app.py
 ```
-Upload an RFP PDF into the UI to watch the multi-agent pipeline execute.
+Upload an RFP PDF into the UI to watch the multi-agent pipeline execute. Use the "✏️ Edit Company Profile" expander in the sidebar to dynamically change your company's capabilities and see how the Strategist adapts its Bid/No-Bid decision!
 
 ## Security & Spec-Driven Development
 

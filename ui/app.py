@@ -16,9 +16,27 @@ st.set_page_config(page_title=" RFP Bid/No-Bid Triage Agent", page_icon="📄")
 profile_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'company_profile.json')
 if os.path.exists(profile_path):
     with open(profile_path, 'r', encoding='utf-8') as f:
-        company_profile = json.load(f)
+        profile_content = f.read()
+        try:
+            company_profile = json.loads(profile_content)
+        except Exception:
+            company_profile = {}
     
     st.sidebar.title("Our Company Profile")
+    
+    with st.sidebar.expander("✏️ Edit Company Profile", expanded=False):
+        new_profile = st.text_area("Update JSON", value=profile_content, height=300)
+        if st.button("Save Profile"):
+            try:
+                # Validate JSON before saving
+                json.loads(new_profile)
+                with open(profile_path, 'w', encoding='utf-8') as f:
+                    f.write(new_profile)
+                st.success("Profile updated successfully!")
+                st.rerun()
+            except json.JSONDecodeError:
+                st.error("Invalid JSON format. Please check your syntax.")
+    
     st.sidebar.subheader(company_profile.get("name", "Company"))
     
     st.sidebar.markdown("**Certifications:**")
