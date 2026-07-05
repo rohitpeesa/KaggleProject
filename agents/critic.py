@@ -1,4 +1,4 @@
-import PyPDF2
+import fitz
 from pydantic import BaseModel
 from typing import List, Optional, Literal
 from google import genai
@@ -33,10 +33,9 @@ class CriticAgent:
     async def run(self, extraction_result: dict, pdf_path: str) -> dict:
         page_dict = {}
         try:
-            with open(pdf_path, 'rb') as f:
-                reader = PyPDF2.PdfReader(f)
-                for i, page in enumerate(reader.pages):
-                    page_dict[i + 1] = page.extract_text() or ""
+            with fitz.open(pdf_path) as doc:
+                for i, page in enumerate(doc):
+                    page_dict[i + 1] = page.get_text() or ""
         except Exception:
             pass # handle or let fail gracefully
             

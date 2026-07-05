@@ -10,7 +10,88 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from agents.orchestrator import run_pipeline, run_strategist
 
 # Set page config
-st.set_page_config(page_title=" RFP Bid/No-Bid Triage Agent", page_icon="📄")
+st.set_page_config(page_title=" RFP Bid/No-Bid Triage Agent", page_icon="📄", layout="wide")
+
+# Modern Aesthetics & CSS Injection
+st.markdown("""
+<style>
+    /* Global App Styling - Dark Mode & Modern Font */
+    .stApp {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        font-family: 'Inter', sans-serif;
+    }
+    
+    /* Vibrant Gradient Headers */
+    h1 {
+        background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+
+    /* Glassmorphism Sidebar */
+    [data-testid="stSidebar"] {
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Animated Gradient Buttons */
+    .stButton > button {
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 24px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    .stButton > button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4), 0 4px 6px -2px rgba(99, 102, 241, 0.2);
+        color: white;
+        border: none;
+    }
+
+    /* Glassmorphic Expanders and Metrics */
+    div[data-testid="stExpander"] {
+        background: rgba(30, 41, 59, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease;
+    }
+    div[data-testid="stExpander"]:hover {
+        transform: scale(1.01);
+    }
+    
+    /* Metric Cards */
+    div[data-testid="stMetric"] {
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 12px;
+        padding: 15px;
+        backdrop-filter: blur(8px);
+    }
+    div[data-testid="stMetricValue"] {
+        color: #38bdf8 !important;
+        font-weight: 700;
+    }
+
+    /* Custom Input fields */
+    .stFileUploader, .stTextArea {
+        background: rgba(30, 41, 59, 0.6);
+        border-radius: 10px;
+        padding: 15px;
+        border: 1px dashed rgba(148, 163, 184, 0.3);
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # --- SIDEBAR ---
 profile_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'company_profile.json')

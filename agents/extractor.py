@@ -1,4 +1,4 @@
-import PyPDF2
+import fitz
 from pydantic import BaseModel
 from typing import List, Literal, Optional
 from google import genai
@@ -37,10 +37,9 @@ class ExtractorAgent:
         
         pdf_text = ""
         try:
-            with open(pdf_path, 'rb') as f:
-                reader = PyPDF2.PdfReader(f)
-                for i, page in enumerate(reader.pages):
-                    text = page.extract_text() or ""
+            with fitz.open(pdf_path) as doc:
+                for i, page in enumerate(doc):
+                    text = page.get_text() or ""
                     pdf_text += f"\n--- Page {i+1} ---\n{text}"
                     
                     # SECURITY SCAN FIRST

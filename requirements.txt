@@ -2,7 +2,7 @@ fastmcp
 google-genai
 google-adk
 streamlit
-PyPDF2
+pymupdf
 pydantic
 python-dotenv
 fastapi
