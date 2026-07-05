@@ -82,7 +82,7 @@ Output EXACTLY this JSON and nothing else. No markdown. No backticks. No explana
 }"""
         
         try:
-            response = self.client.models.generate_content(
+            response = await self.client.aio.models.generate_content(
                 model="gemini-2.5-pro",
                 contents=f"{system_prompt}\n\nDocument Text:\n{pdf_text}",
                 config=types.GenerateContentConfig(

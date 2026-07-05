@@ -1,4 +1,5 @@
 import fitz
+import asyncio
 from pydantic import BaseModel
 from typing import List, Optional, Literal
 from google import genai
@@ -76,7 +77,7 @@ Page Text: {page_text}
                 reason: Optional[str] = None
                 
             try:
-                response = self.client.models.generate_content(
+                response = await self.client.aio.models.generate_content(
                     model="gemini-2.5-pro",
                     contents=prompt,
                     config=types.GenerateContentConfig(
@@ -96,7 +97,7 @@ Page Text: {page_text}
                         "reason": verify_res.reason or "Failed verification"
                     })
                     
-                time.sleep(2) # Prevent Gemini API rate limit exceptions from auto-flagging
+                await asyncio.sleep(2) # Prevent Gemini API rate limit exceptions from auto-flagging
             except Exception as e:
                 flagged.append({
                     "id": req.get("id", 0),
